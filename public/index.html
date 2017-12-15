@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html ng-app="myApp">
+
+<head>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb"
+		crossorigin="anonymous">
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+		<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.0.7/angular.min.js"></script>
+		<script src="controllers/myAppCtrl.js"></script>
+</head>
+
+<body>
+	<div class="container" ng-controller="myAppCtrl">
+		<h3>Cognizant Contact List</h3>
+		<br/><br/>
+		<div class="table">
+			<table class="table-bordered table-striped">
+				<thead>
+					<th>Employee Name</th>
+					<th>Employee ID</th>
+					<th>Action</th>
+				</thead>
+				<tbody>
+					<tr ng-repeat="contactRow in contactList">
+						<td>{{contactRow.empName}}</td>
+						<td>{{contactRow.empId}}</td>
+						<td>
+							<button type="button" class="btn btn-info" ng-click="editContact(contactRow)">
+								<span class="glyphicon glyphicon-edit"></span>&nbsp;Edit
+							</button>
+							<button type="button" class="btn btn-danger" ng-click="deleteContact(contactRow)">
+								<span class="glyphicon glyphicon-trash"></span>&nbsp;Delete
+							</button>
+						</td>
+					</tr>
+					<tr>
+						<form name="addContactForm" novalidate>
+							<td>
+								<input type="text" name="empNameField" class="form-control" ng-model="contactObj.empName" required="true">
+							</td>
+							<td>
+								<input type="number" name="empIdField" class="form-control" ng-model="contactObj.empId" required="true">
+							</td>
+							<td>
+								<button type="submit" class="btn btn-primary" ng-click="addContact(contactObj)" ng-hide="hideAddBtn">
+											<span class="glyphicon glyphicon-plus"></span>&nbsp;Add
+								</button>
+								<button type="submit" class="btn btn-info" ng-click="save(contactObj)" ng-show="hideAddBtn">
+											<span class="glyphicon glyphicon-floppy-disk"></span>&nbsp;Save
+								</button>
+							</td>
+						</form>						
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	</div>
+
+	<!-- Modal -->
+	<div id="errorModal" class="modal fade" role="dialog">
+		<div class="modal-dialog">
+			<!-- Modal content-->
+			<div class="modal-content">
+				<div class="modal-body">
+					<p>Both Employee Name and Employee ID are mandatory fields.</p>
+					<button type="button" class="btn btn-default pull-right" data-dismiss="modal">
+						Ok
+					</button>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+
+</html>
